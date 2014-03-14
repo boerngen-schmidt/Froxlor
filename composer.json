@@ -1,0 +1,16 @@
+{
+    "name": "Benjamin/froxlor",
+    "description": "Panel for server services",
+    "require": {
+        "agavi/agavi": "dev-master"
+    },
+    "authors": [
+        {
+            "name": "benjamin",
+            "email": "benjamin@boerngen-schmidt.de"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    }
+}
