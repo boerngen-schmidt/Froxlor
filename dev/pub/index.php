@@ -3,7 +3,7 @@
 // +---------------------------------------------------------------------------+
 // | An absolute filesystem path to the agavi/agavi.php script.                |
 // +---------------------------------------------------------------------------+
-require('%%AGAVI_SOURCE_LOCATION%%/agavi.php');
+require (realpath(dirname(__FILE__).'/../vendor/autoload.php'));
 
 // +---------------------------------------------------------------------------+
 // | An absolute filesystem path to our app/config.php script.                 |

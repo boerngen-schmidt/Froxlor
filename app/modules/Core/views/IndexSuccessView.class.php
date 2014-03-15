@@ -17,7 +17,8 @@ class Core_IndexSuccessView extends FroxlorCoreBaseView
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
 		$this->setupHtml($rd);
-
+		$this->useSmartyRenderer();		
+		
 		$this->setAttribute('_title', 'Index');
 	}
 }

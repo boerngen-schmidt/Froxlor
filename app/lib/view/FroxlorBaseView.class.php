@@ -49,6 +49,20 @@ class FroxlorBaseView extends AgaviView
 		// you could use this, for instance, to automatically set a bunch of CSS or Javascript includes based on layout parameters -->
 		$this->loadLayout($layoutName);
 	}
+	
+	/**
+	 * Sets the Output Renderer to Smarty using *.tpl files
+	 */
+	protected function useSmartyRenderer() {
+		$this->getLayer('content')->setRenderer($this->container->getOutputType()->getRenderer('smarty'));
+	}
+	
+	/**
+	 * Sets the Output Renderer to PHP using *.php files
+	 */
+	protected function usePhpRenderer() {
+		$this->getLayer('content')->setRenderer($this->container->getOutputType()->getRenderer('php'));
+	}
 }
 
 ?>
