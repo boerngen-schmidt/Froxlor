@@ -1,13 +1,23 @@
 {
     "name": "Benjamin/froxlor",
     "description": "Panel for server services",
+    "version": "1.0.0-dev",
+    "type": "project",
+    "homepage": "http://froxlor.org",
+    "license": "GPL-2.0",
     "require": {
         "agavi/agavi": "dev-master"
     },
+    "support": {
+    	"forum": "http://forum.froxlor.org/",
+    	"irc": "irc://irc.freenode.org/froxlor",
+    	"wiki": "http://redmine.froxlor.org/projects/froxlor/wiki"
+    },
     "authors": [
         {
-            "name": "benjamin",
-            "email": "benjamin@boerngen-schmidt.de"
+            "name": "Benjamin Börngen-Schmidt",
+            "homepage": "http://www.boerngen-schmidt.de",
+            "role": "Contributer"
         }
     ],
     "require-dev": {
