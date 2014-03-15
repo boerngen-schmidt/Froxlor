@@ -1,6 +1,6 @@
 <?php
 
-class Welcome_ModuleDisabledAction extends FroxlorWelcomeBaseAction
+class Core_Error404Action extends FroxlorCoreBaseAction
 {
 	
 	

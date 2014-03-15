@@ -1,6 +1,6 @@
 <?php
 
-class Welcome_UnavailableAction extends FroxlorWelcomeBaseAction
+class Core_UnavailableAction extends FroxlorCoreBaseAction
 {
 	
 	

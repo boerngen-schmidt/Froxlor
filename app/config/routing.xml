@@ -3,7 +3,7 @@
 	<ae:configuration>
 		<routes>
 			<!-- this shows the welcome page after creating a project. you should remove it along with the entire "Welcome" module and the pub/welcome/ directory -->
-			<route pattern="" module="Welcome" action="Index" />
+			<route pattern="" module="Core" action="Index" />
 			
 			<!-- default action for "/" -->
 			<route name="index" pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" />

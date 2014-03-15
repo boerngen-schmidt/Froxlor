@@ -10,27 +10,27 @@
 			</system_action>
 			
 			<system_action name="error_404">
-				<module>Welcome</module>
+				<module>Core</module>
 				<action>Error404</action>
 			</system_action>
 			
 			<system_action name="unavailable">
-				<module>Welcome</module>
+				<module>Core</module>
 				<action>Unavailable</action>
 			</system_action>
 			
 			<system_action name="module_disabled">
-				<module>Welcome</module>
+				<module>Core</module>
 				<action>ModuleDisabled</action>
 			</system_action>
 			
 			<system_action name="secure">
-				<module>Welcome</module>
+				<module>Core</module>
 				<action>Secure</action>
 			</system_action>
 			
 			<system_action name="login">
-				<module>Welcome</module>
+				<module>Core</module>
 				<action>Login</action>
 			</system_action>
 		</system_actions>

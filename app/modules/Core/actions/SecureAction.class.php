@@ -1,6 +1,6 @@
 <?php
 
-class Welcome_LoginAction extends FroxlorWelcomeBaseAction
+class Core_SecureAction extends FroxlorCoreBaseAction
 {
 	
 	
