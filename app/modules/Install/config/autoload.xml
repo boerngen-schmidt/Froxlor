@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ae:configurations xmlns="http://agavi.org/agavi/config/parts/autoload/1.1" xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.1">
+	
+	<ae:configuration>
+		
+		<autoload class="FroxlorInstallBaseAction">%core.module_dir%/Install/lib/action/FroxlorInstallBaseAction.class.php</autoload>
+		<autoload class="FroxlorInstallBaseModel">%core.module_dir%/Install/lib/model/FroxlorInstallBaseModel.class.php</autoload>
+		<autoload class="FroxlorInstallBaseView">%core.module_dir%/Install/lib/view/FroxlorInstallBaseView.class.php</autoload>
+		
+	</ae:configuration>
+	
+</ae:configurations>
