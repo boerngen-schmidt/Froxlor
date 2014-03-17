@@ -1,6 +1,6 @@
 <?php
 
-class Welcome_Error404SuccessView extends FroxlorWelcomeBaseView
+class Core_Error404SuccessView extends FroxlorCoreBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{

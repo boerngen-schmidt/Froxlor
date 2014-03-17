@@ -1,6 +1,6 @@
 <?php
 
-class Welcome_SecureSuccessView extends FroxlorWelcomeBaseView
+class Core_SecureSuccessView extends FroxlorCoreBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
