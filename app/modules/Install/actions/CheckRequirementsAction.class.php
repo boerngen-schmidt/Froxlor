@@ -43,7 +43,7 @@ class Install_CheckRequirementsAction extends FroxlorInstallBaseAction
 		$this->setAttribute('requirement', $mRequirements);
 		$this->setAttribute('phpversion', PHP_VERSION);
 		
-		if ($mRequirements->checkAll()) {
+		if ($mRequirements->checkMustRequirements()) {
 			return 'Success';
 		} else {
 			return 'Error';

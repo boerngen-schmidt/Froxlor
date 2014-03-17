@@ -20,15 +20,23 @@
  
 class Install_CheckRequirementsModel extends FroxlorInstallBaseModel
 {
-	public function checkAll() {
-		return ($this->checkMagicQuotes()
-				&& $this->checkOpenbasedir()
-				&& $this->checkPdo()
-				&& $this->checkPhp()
+	public function checkAllRequirements() {
+		return ($this->checkMustRequirements() && $this->checkOptionalRequirements());
+	}
+	
+	public function checkOptionalRequirements() {
+		return ($this->checkOpenbasedir()
 				&& $this->checkPhpBcmath()
 				&& $this->checkPhpCurl()
-				&& $this->checkPhpFilter()
 				&& $this->checkPhpPosix()
+		);
+	}
+	
+	public function checkMustRequirements() {
+		return ($this->checkMagicQuotes()
+				&& $this->checkPdo()
+				&& $this->checkPhp()
+				&& $this->checkPhpFilter()
 				&& $this->checkPhpXml()
 		);
 	}
