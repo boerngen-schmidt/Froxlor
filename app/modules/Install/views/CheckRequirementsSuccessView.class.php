@@ -17,7 +17,7 @@
  *
  */
  
-class Install_StartSuccessView extends FroxlorInstallBaseView
+class Install_CheckRequirementsSuccessView extends FroxlorInstallBaseView
 {
 	
 
@@ -34,6 +34,8 @@ class Install_StartSuccessView extends FroxlorInstallBaseView
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
 		$this->setupHtml($rd);
+
+		$this->setAttribute('title', $this->tm->_('Checking system requirements...'));
 	}
 }
 

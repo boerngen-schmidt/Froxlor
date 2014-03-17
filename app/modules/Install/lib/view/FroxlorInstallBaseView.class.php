@@ -33,6 +33,14 @@ class FroxlorInstallBaseView extends FroxlorBaseView
 			)
 		);
 		$container->getOutputType()->setParameters($parameters);
+		
+		// Set a timezone if
+		if (function_exists("date_default_timezone_set")
+			&& function_exists("date_default_timezone_get")
+			)
+		{
+			@date_default_timezone_set(@date_default_timezone_get());
+		}
 	}
 	
 	

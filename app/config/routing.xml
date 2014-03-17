@@ -8,7 +8,9 @@
 			<route name="notinstalled" pattern="^/notinstalled" module="Core" action="NotInstalled" />
 			
 			<route name="install" pattern="^/install" module="Install">
-				<route name=".start" pattern="^/start" action="Start" />
+				<route name='.already' pattern='^/alreadyinstalled' action="AlreadyInstalled" />
+				<route name=".check" pattern="^/requirements" action="CheckRequirements" />
+				<route name=".database" pattern="^/database" action="Database" />
 			</route>
 
 		</routes>

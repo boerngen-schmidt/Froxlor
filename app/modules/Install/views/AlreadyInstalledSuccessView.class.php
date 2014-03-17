@@ -17,7 +17,7 @@
  *
  */
  
-class Install_StartSuccessView extends FroxlorInstallBaseView
+class Install_AlreadyInstalledSuccessView extends FroxlorInstallBaseView
 {
 	
 
@@ -33,7 +33,7 @@ class Install_StartSuccessView extends FroxlorInstallBaseView
 	 */
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
-		$this->setupHtml($rd);
+		$this->setupHtml($rd, $this->getContainer()->getOutputType()->getDefaultLayoutName());
 	}
 }
 

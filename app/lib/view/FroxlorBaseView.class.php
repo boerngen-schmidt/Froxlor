@@ -5,7 +5,15 @@
  */
 class FroxlorBaseView extends AgaviView
 {
+	/* @var $tm AgaviTranslationManager */
+	protected $tm;
+	
 	const SLOT_LAYOUT_NAME = 'slot';
+	
+	public function initialize(AgaviExecutionContainer $container) {
+		parent::initialize($container);
+		$this->tm = $container->getContext()->getTranslationManager();
+	}
 	
 	/**
 	 * Handles output types that are not handled elsewhere in the view. The

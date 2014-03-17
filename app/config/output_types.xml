@@ -53,25 +53,7 @@
 							<ae:parameter name="template">Install</ae:parameter>
 						</layer>
 					</layout>
-					
-					<!-- another example layout that has an intermediate wrapper layer in between content and decorator -->
-					<!-- it also shows how to use slots etc -->
-					<layout name="wrapped">
-						<!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view -->
-						<layer name="content" />
-						<layer name="wrapper">
-							<!-- use CurrentView.wrapper.php instead of CurrentView.php as the template for this one -->
-							<ae:parameter name="extension">.wrapper.php</ae:parameter>
-						</layer>
-						<!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here -->
-						<layer name="decorator">
-							<ae:parameter name="directory">%core.template_dir%</ae:parameter>
-							<ae:parameter name="template">Master</ae:parameter>
-							<!-- an example for a slot -->
-							<slot name="nav" module="Default" action="Widgets.Navigation" />
-						</layer>
-					</layout>
-					
+
 					<!-- a simple layout with just one content layer and no decorator -->
 					<layout name="simple">
 						<layer name="content" />
