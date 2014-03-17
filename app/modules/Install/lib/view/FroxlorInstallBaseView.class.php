@@ -22,6 +22,20 @@
  */
 class FroxlorInstallBaseView extends FroxlorBaseView
 {
+	public function initialize(AgaviExecutionContainer $container) {
+		parent::initialize($container);
+		$parameters = array(
+			'http_headers' => array (
+				'Cache-Control' => 'no-store, no-cache, must-revalidate',
+				'Pragma' => 'no-cache',
+				'Last-Modified' =>  gmdate( 'D, d M Y H:i:s \G\M\T', time()),
+				'Expires' => gmdate( 'D, d M Y H:i:s \G\M\T', time())
+			)
+		);
+		$container->getOutputType()->setParameters($parameters);
+	}
+	
+	
 	public function setupHtml(AgaviRequestDataHolder $rd, $layoutName = 'install') {
 		parent::setupHtml($rd, $layoutName);
 	}	
