@@ -17,7 +17,7 @@
  *
  */
  
-class Install_StartSuccessView extends FroxlorInstallBaseView
+class Install_StartInputView extends FroxlorInstallBaseView
 {
 	
 
@@ -33,9 +33,15 @@ class Install_StartSuccessView extends FroxlorInstallBaseView
 	 */
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
-		$this->context->getController()->getGlobalResponse()->setCookie('locale', $rd->getParameter('language'), '+1 month');
-		$this->getResponse()->setRedirect($this->getContext()->getRouting()->gen('install.check', array('locale' => $rd->getParameter('language'))));
-        return;
+		$this->setupHtml($rd);
+		
+		$languages = array(
+				'en' => $this->tm->_('English', 'froxlor.install'),
+				'de' => $this->tm->_('German', 'froxlor.install'),
+			);
+		$this->setAttribute('languages', $languages);
+		$this->setAttribute('title', $this->tm->_('Choose installation language', 'froxlor.install'));
+		
 	}
 }
 

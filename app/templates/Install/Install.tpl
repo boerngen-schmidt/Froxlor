@@ -17,7 +17,16 @@
 </head>
 <body>
 	<div class="installsec">
-		{$inner}
+		<article class="install bradius">
+			<header class="dark">
+				<img src="templates/Sparkle/img/logo.png" alt="Froxlor Server Management Panel" />
+			</header>
+		
+			<section class="installsec">
+				<h2>{$t.title}</h2>
+				{$inner}
+			</section>
+		</article>
 	</div>
 	<footer>
 		<span> Froxlor &copy; 2009-{$smarty.now|date_format:"%Y"} by <a href="http://www.froxlor.org/" rel="external">the Froxlor Team</a>

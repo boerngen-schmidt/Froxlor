@@ -17,19 +17,44 @@
  *
  */
 
-class Install_IndexAction extends FroxlorInstallBaseAction
+class Install_SettingsAction extends FroxlorInstallBaseAction
 {
 	
 
 	/**
-	 * Whether or not this action is "simple", i.e. doesn't use validation etc.
+	 * Handles the Write request method.
 	 *
-	 * @return     bool true, if this action should act in simple mode, or false.
+	 * @parameter  AgaviRequestDataHolder the (validated) request data
 	 *
+	 * @return     mixed <ul>
+	 *                     <li>A string containing the view name associated
+	 *                     with this action; or</li>
+	 *                     <li>An array with two indices: the parent module
+	 *                     of the view to be executed and the view to be
+	 *                     executed.</li>
+	 *                   </ul>^
 	 */
-	public function isSimple()
+	public function executeWrite(AgaviRequestDataHolder $rd)
 	{
-		return true;
+		return 'Success';
+	}
+	
+	/**
+	 * Handles the Read request method.
+	 *
+	 * @parameter  AgaviRequestDataHolder the (validated) request data
+	 *
+	 * @return     mixed <ul>
+	 *                     <li>A string containing the view name associated
+	 *                     with this action; or</li>
+	 *                     <li>An array with two indices: the parent module
+	 *                     of the view to be executed and the view to be
+	 *                     executed.</li>
+	 *                   </ul>^
+	 */
+	public function executeRead(AgaviRequestDataHolder $rd)
+	{
+		return 'Input';
 	}
 	
 	/**

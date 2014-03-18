@@ -3,6 +3,7 @@
 	
 	<ae:configuration>
 		
+		<autoload class="FroxlorLanguageRoutingCallback">%core.lib_dir%/routing/FroxlorLanguageRoutingCallback.class.php</autoload>
 		<autoload class="FroxlorBaseAction">%core.lib_dir%/action/FroxlorBaseAction.class.php</autoload>
 		<autoload class="FroxlorBaseModel">%core.lib_dir%/model/FroxlorBaseModel.class.php</autoload>
 		<autoload class="FroxlorBaseView">%core.lib_dir%/view/FroxlorBaseView.class.php</autoload>

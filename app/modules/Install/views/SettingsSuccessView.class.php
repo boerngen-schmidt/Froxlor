@@ -17,7 +17,7 @@
  *
  */
  
-class Install_IndexSuccessView extends FroxlorInstallBaseView
+class Install_SettingsSuccessView extends FroxlorInstallBaseView
 {
 	
 
@@ -35,7 +35,7 @@ class Install_IndexSuccessView extends FroxlorInstallBaseView
 	{
 		$this->setupHtml($rd);
 
-		$this->setAttribute('_title', 'Index');
+		$this->setAttribute('title', 'Settings');
 	}
 }
 

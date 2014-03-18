@@ -19,8 +19,25 @@
 
 class Install_StartAction extends FroxlorInstallBaseAction
 {
+	/**
+	 * Handles the Write request method.
+	 *
+	 * @parameter  AgaviRequestDataHolder the (validated) request data
+	 *
+	 * @return     mixed <ul>
+	 *                     <li>A string containing the view name associated
+	 *                     with this action; or</li>
+	 *                     <li>An array with two indices: the parent module
+	 *                     of the view to be executed and the view to be
+	 *                     executed.</li>
+	 *                   </ul>^
+	 */
+	public function executeWrite(AgaviRequestDataHolder $rd)
+	{
+		$this->context->getTranslationManager()->getLocaleIdentifier($rd->getParameter('language'));
+		return 'Success';
+	}
 	
-
 	/**
 	 * Handles the Read request method.
 	 *
@@ -36,7 +53,7 @@ class Install_StartAction extends FroxlorInstallBaseAction
 	 */
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
-		return 'Success';
+		return 'Input';
 	}
 	
 	/**
@@ -53,7 +70,7 @@ class Install_StartAction extends FroxlorInstallBaseAction
 	 */
 	public function getDefaultViewName()
 	{
-		return 'Success';
+		return 'Input';
 	}
 }
 

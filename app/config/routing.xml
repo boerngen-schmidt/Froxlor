@@ -3,14 +3,24 @@
 	<ae:configuration>
 		<routes>
 		
+			<route pattern="^/({locale:[a-z]{2}(_[A-Z]{2})?})" stop="false" imply="true" cut="true" locale="${locale}@currency=GBP">
+			    <callbacks>
+			        <callback class="FroxlorLanguageRoutingCallback" />
+			    </callbacks>
+			    <ignores>
+			        <ignore>locale</ignore>
+			    </ignores>
+			</route>
+
 			<!-- default action for "/" -->
 			<route name="index" pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" />
 			<route name="notinstalled" pattern="^/notinstalled" module="Core" action="NotInstalled" />
 			
 			<route name="install" pattern="^/install" module="Install">
 				<route name='.already' pattern='^/alreadyinstalled' action="AlreadyInstalled" />
+				<route name=".start" pattern="^/$" action="Start" />
 				<route name=".check" pattern="^/requirements" action="CheckRequirements" />
-				<route name=".database" pattern="^/database" action="Database" />
+				<route name=".settings" pattern="^/settings" action="Settings" />
 			</route>
 
 		</routes>

@@ -5,14 +5,35 @@
  */
 class FroxlorBaseView extends AgaviView
 {
-	/* @var $tm AgaviTranslationManager */
+	/**
+	* @var AgaviRouting
+	*/
+	protected $ro;
+	
+	/**
+	* @var AgaviRequest
+	*/
+	protected $rq;
+	
+	/**
+	* @var AgaviTranslationManager
+	*/
 	protected $tm;
+	
+	/**
+	* @var AgaviUser
+	*/
+	protected $us;
 	
 	const SLOT_LAYOUT_NAME = 'slot';
 	
 	public function initialize(AgaviExecutionContainer $container) {
 		parent::initialize($container);
-		$this->tm = $container->getContext()->getTranslationManager();
+		
+		$this->ro = $this->getContext()->getRouting();
+		$this->rq = $this->getContext()->getRequest();
+		$this->tm = $this->getContext()->getTranslationManager();
+		$this->us = $this->getContext()->getUser();
 	}
 	
 	/**

@@ -118,7 +118,7 @@ p {
 
 .installsec fieldset {
 	border:0;
-	float:left;
+	/* float:left; */
 	clear:left;
 	width:600px;
 	margin:0 100px 10px;

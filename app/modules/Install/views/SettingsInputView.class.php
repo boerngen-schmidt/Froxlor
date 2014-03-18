@@ -17,7 +17,7 @@
  *
  */
  
-class Install_StartSuccessView extends FroxlorInstallBaseView
+class Install_SettingsInputView extends FroxlorInstallBaseView
 {
 	
 
@@ -33,9 +33,24 @@ class Install_StartSuccessView extends FroxlorInstallBaseView
 	 */
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
-		$this->context->getController()->getGlobalResponse()->setCookie('locale', $rd->getParameter('language'), '+1 month');
-		$this->getResponse()->setRedirect($this->getContext()->getRouting()->gen('install.check', array('locale' => $rd->getParameter('language'))));
-        return;
+		$this->setupHtml($rd);
+
+		$this->setAttribute('title', 'Settings');
+		/* @var $mSysinfo Install_SystemInformationModel */
+		$mSysinfo = $this->context->getModel('SystemInformation', 'Install');
+		
+		$form = new AgaviParameterHolder(array(
+				'mysql_host' => "127.0.0.1",
+				'mysql_database' => 'froxlor',
+				'mysql_unpriv_user' => 'froxlor',
+				'mysql_root_user' => 'root',
+				'admin_user' => 'admin',
+				'servername' => $mSysinfo->guessServerName(),
+				'serverip' => $mSysinfo->guessServerIP(),
+				'httpuser' => $mSysinfo->guessHttpUsername(),
+				'httpgroup' => $mSysinfo->guessHttpGroupname(),
+		));
+		$this->getContext()->getRequest()->setAttribute('populate', array('settings' => $form), 'org.agavi.filter.FormPopulationFilter');
 	}
 }
 
