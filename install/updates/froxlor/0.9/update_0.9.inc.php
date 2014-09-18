@@ -714,7 +714,7 @@ if (isFroxlorVersion('0.9.7-svn1')) {
 	showUpdateStep("Updating open_basedir due to security - issue");
 	$result = Database::query("SELECT `id` FROM `" . TABLE_PANEL_DOMAINS . "` WHERE `documentroot` LIKE '%:%' AND `documentroot` NOT LIKE 'http://%' AND `openbasedir_path` = '0' AND `openbasedir` = '1'");
 	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-		Database::query("UPDATE `".TABLE_PANEL_DOMAINS."` SET `openbasedir_path` = '1' WHERE `id` = '" . (int)$row['id'])."'";
+		Database::query("UPDATE `".TABLE_PANEL_DOMAINS."` SET `openbasedir_path` = '1' WHERE `id` = '" . (int)$row['id']."'");
 	}
 	lastStepStatus(0);
 
@@ -2752,4 +2752,42 @@ if (isFroxlorVersion('0.9.32-rc1')) {
 	lastStepStatus(0);
 
 	updateToVersion('0.9.32-rc2');
+}
+
+if (isFroxlorVersion('0.9.32-rc2')) {
+	showUpdateStep("Updating from 0.9.32-rc2 to 0.9.32-rc3", false);
+
+	showUpdateStep("Removing outdated languages");
+	Database::query("DELETE FROM `" . TABLE_PANEL_LANGUAGE . "` WHERE `iso` REGEXP '(bg|ca|cz|da|hu|pl|ru|sk|es|zh)';");
+	Database::query("UPDATE `" . TABLE_PANEL_ADMINS . "` SET `def_language` = 'English' WHERE `def_language` NOT REGEXP '(Dutch|English|Français|Deutsch|Italian|Portugu\&ecirc;s|Swedish)';");
+	Database::query("UPDATE `" . TABLE_PANEL_CUSTOMERS . "` SET `def_language` = 'English' WHERE `def_language` NOT REGEXP '(Dutch|English|Français|Deutsch|Italian|Portugu&ecirc;s|Swedish)';");
+	lastStepStatus(0);
+
+	updateToVersion('0.9.32-rc3');
+}
+
+if (isFroxlorVersion('0.9.32-rc3')) {
+	showUpdateStep("Updating from 0.9.32-rc3 to 0.9.32 final", false);
+	updateToVersion('0.9.32');
+}
+
+if (isFroxlorVersion('0.9.32')) {
+	showUpdateStep("Updating from 0.9.32 to 0.9.33-dev1", false);
+
+	showUpdateStep("Adding settings for custom newsfeed on customer-dashboard");
+	Settings::AddNew("customer.show_news_feed", isset($_POST['customer_show_news_feed']) ? (int)$_POST['customer_show_news_feed'] : '0');
+	Settings::AddNew("customer.news_feed_url", isset($_POST['customer_news_feed_url']) ? $_POST['customer_news_feed_url'] : '');
+	lastStepStatus(0);
+
+	updateToVersion('0.9.33-dev1');
+}
+
+if (isFroxlorVersion('0.9.33-dev1')) {
+	showUpdateStep("Updating from 0.9.33-dev1 to 0.9.33-dev2", false);
+
+	showUpdateStep("Adding settings for hostname-dns-entry");
+	Settings::AddNew("system.dns_createhostnameentry", isset($_POST['dns_createhostnameentry']) ? (int)$_POST['dns_createhostnameentry'] : '0');
+	lastStepStatus(0);
+
+	updateToVersion('0.9.33-dev2');
 }

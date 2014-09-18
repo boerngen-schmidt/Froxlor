@@ -65,7 +65,8 @@ class FroxlorInstall {
 	 */
 	private $_languages = array(
 			'german' => 'Deutsch',
-			'english' => 'English'
+			'english' => 'English',
+			'french' => 'Français'
 	);
 
 	/**
@@ -477,6 +478,9 @@ class FroxlorInstall {
 		$ts = mktime(1, 0, 0, date('m', time()), date('d', time()), date('Y', time()));
 		$db->query("UPDATE `".TABLE_PANEL_CRONRUNS."` SET `lastrun` = '".$ts."' WHERE `cronfile` ='cron_used_tickets_reset.php';");
 		$db->query("UPDATE `".TABLE_PANEL_CRONRUNS."` SET `lastrun` = '".$ts."' WHERE `cronfile` ='cron_ticketarchive.php';");
+
+		// insert task 99 to generate a correct cron.d-file automatically
+		$db->query("INSERT INTO `".TABLE_PANEL_TASKS."` SET `type` = '99';");
 
 		$content .= $this->_status_message('green', 'OK');
 

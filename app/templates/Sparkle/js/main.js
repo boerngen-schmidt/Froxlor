@@ -28,13 +28,17 @@ $(document).ready(function() {
 	
 	// Load Newsfeed
 	var ajax_load = "<div id='newsitem'>Loading newsfeed...</div>";
-	$("#newsfeeditems").html(ajax_load).load("lib/ajax.php?action=newsfeed", function() {
+	var role = "";
+	if (typeof $("#newsfeed").data("role") !== "undefined") {
+		role = "&role=" + $("#newsfeed").data("role");
+	}
+	$("#newsfeeditems").html(ajax_load).load("lib/ajax.php?action=newsfeed" + role, function() {
 		if ($("#newsfeeditems").html().length > 0) {
 			$(window).trigger('resize');
 			$("#newsfeed").slideDown();
 		}
 	});	
-	
+
 	// Enable Infobubbles
 	$(".tipper").tipper({
 		direction: "right"
@@ -49,7 +53,7 @@ $(document).ready(function() {
 	// Height of divs fix
 	var snheight = $('#sidenavigation').height();
 	var mainheight = $('#maincontent').height();
-	if (snheight > mainheight) {
+	if (snheight > mainheight && !$('#newsfeed').length) {
 		$('#maincontent').height(snheight);
 	}
 

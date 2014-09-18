@@ -217,7 +217,6 @@ CREATE TABLE `panel_domains` (
   `customerid` int(11) unsigned NOT NULL default '0',
   `aliasdomain` int(11) unsigned NULL,
   `documentroot` varchar(255) NOT NULL default '',
-  `ipandport` int(11) unsigned NOT NULL default '1',
   `isbinddomain` tinyint(1) NOT NULL default '0',
   `isemaildomain` tinyint(1) NOT NULL default '0',
   `email_only` tinyint(1) NOT NULL default '0',
@@ -234,9 +233,7 @@ CREATE TABLE `panel_domains` (
   `openbasedir` tinyint(1) NOT NULL default '0',
   `openbasedir_path` tinyint(1) NOT NULL default '0',
   `speciallogfile` tinyint(1) NOT NULL default '0',
-  `ssl` tinyint(4) NOT NULL default '0',
   `ssl_redirect` tinyint(4) NOT NULL default '0',
-  `ssl_ipandport` tinyint(4) NOT NULL default '0',
   `specialsettings` text NOT NULL,
   `deactivated` tinyint(1) NOT NULL default '0',
   `bindserial` varchar(10) NOT NULL default '2000010100',
@@ -341,6 +338,8 @@ INSERT INTO `panel_settings` (`settinggroup`, `varname`, `value`) VALUES
 	('customer', 'ftpprefix', 'ftp'),
 	('customer', 'mysqlprefix', 'sql'),
 	('customer', 'ftpatdomain', '0'),
+	('customer', 'show_news_feed', '0'),
+	('customer', 'news_feed_url', ''),
 	('ticket', 'noreply_email', 'NO-REPLY@SERVERNAME'),
 	('ticket', 'worktime_all', '1'),
 	('ticket', 'worktime_begin', '00:00'),
@@ -502,6 +501,7 @@ INSERT INTO `panel_settings` (`settinggroup`, `varname`, `value`) VALUES
 	('system', 'crondreload', '/etc/init.d/cron reload'),
 	('system', 'croncmdline', '/usr/bin/nice -n 5 /usr/bin/php5 -q'),
 	('system', 'cron_allowautoupdate', '0'),
+	('system', 'dns_createhostnameentry', '0'),
 	('panel', 'decimal_places', '4'),
 	('panel', 'adminmail', 'admin@SERVERNAME'),
 	('panel', 'phpmyadmin_url', ''),
@@ -529,7 +529,7 @@ INSERT INTO `panel_settings` (`settinggroup`, `varname`, `value`) VALUES
 	('panel', 'phpconfigs_hidestdsubdomain', '0'),
 	('panel', 'allow_theme_change_admin', '1'),
 	('panel', 'allow_theme_change_customer', '1'),
-	('panel', 'version', '0.9.32-rc2');
+	('panel', 'version', '0.9.33-dev2');
 
 
 DROP TABLE IF EXISTS `panel_tasks`;
@@ -642,20 +642,10 @@ INSERT INTO `panel_languages` (`id`, `language`, `iso`, `file`) VALUES
     (1, 'Deutsch', 'de', 'lng/german.lng.php'),
     (2, 'English', 'en', 'lng/english.lng.php'),
     (3, 'Français', 'fr', 'lng/french.lng.php'),
-    (4, 'Chinese', 'zh', 'lng/zh-cn.lng.php'),
-    (5, 'Catalan', 'ca', 'lng/catalan.lng.php'),
-    (6, 'Espa&ntilde;ol', 'es', 'lng/spanish.lng.php'),
-    (7, 'Portugu&ecirc;s', 'pt', 'lng/portugues.lng.php'),
-    (8, 'Russian', 'ru', 'lng/russian.lng.php'),
-    (9, 'Danish', 'da', 'lng/danish.lng.php'),
-    (10, 'Italian', 'it', 'lng/italian.lng.php'),
-    (11, 'Bulgarian', 'bg', 'lng/bulgarian.lng.php'),
-    (12, 'Slovak', 'sk', 'lng/slovak.lng.php'),
-    (13, 'Dutch', 'nl', 'lng/dutch.lng.php'),
-    (14, 'Hungarian', 'hu', 'lng/hungarian.lng.php'),
-    (15, 'Swedish', 'sv', 'lng/swedish.lng.php'),
-    (16, 'Czech', 'cz', 'lng/czech.lng.php'),
-    (17, 'Polski', 'pl', 'lng/polish.lng.php');
+    (4, 'Portugu&ecirc;s', 'pt', 'lng/portugues.lng.php'),
+    (5, 'Italian', 'it', 'lng/italian.lng.php'),
+    (6, 'Dutch', 'nl', 'lng/dutch.lng.php'),
+    (7, 'Swedish', 'sv', 'lng/swedish.lng.php');
 
 
 

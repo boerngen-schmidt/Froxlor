@@ -74,9 +74,18 @@ return array(
 					'varname' => 'axfrservers',
 					'type' => 'string',
 					'string_type' => 'validate_ip',
+					'string_delimiter' => ',',
 					'string_emptyallowed' => true,
 					'default' => '',
 					'save_method' => 'storeSettingField',
+				),
+				'system_dns_createhostnameentry' => array(
+					'label' => $lng['serversettings']['dns_createhostnameentry'],
+					'settinggroup' => 'system',
+					'varname' => 'dns_createhostnameentry',
+					'type' => 'bool',
+					'default' => false,
+					'save_method' => 'storeSettingField'
 				),
 				'system_dns_createmailentry' => array(
 					'label' => $lng['serversettings']['mail_also_with_mxservers'],

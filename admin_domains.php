@@ -351,7 +351,14 @@ if ($page == 'domains'
 					$admin = $userinfo;
 				}
 
-				$documentroot = $customer['documentroot'];
+				// set default path if admin/reseller has "change_serversettings == false" but we still
+				// need to respect the documentroot_use_default_value - setting
+				$path_suffix = '';
+				if (Settings::Get('system.documentroot_use_default_value') == 1) {
+					$path_suffix = '/'.$domain;
+				}
+				$documentroot = makeCorrectDir($customer['documentroot'] . $path_suffix);
+
 				$registration_date = trim($_POST['registration_date']);
 				$registration_date = validate($registration_date, 'registration_date', '/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/', '', array('0000-00-00', '0', ''));
 
@@ -875,7 +882,7 @@ if ($page == 'domains'
 						$row_ipandport['ip'] = '[' . $row_ipandport['ip'] . ']';
 					}
 
-					$ipsandports[] = array('label' => $row_ipandport['ip'] . ':' . $row_ipandport['port'], 'value' => $row_ipandport['id']);
+					$ipsandports[] = array('label' => $row_ipandport['ip'] . ':' . $row_ipandport['port'] . '<br />', 'value' => $row_ipandport['id']);
 				}
 
 				$ssl_ipsandports = array();
@@ -885,7 +892,7 @@ if ($page == 'domains'
 						$row_ssl_ipandport['ip'] = '[' . $row_ssl_ipandport['ip'] . ']';
 					}
 
-					$ssl_ipsandports[] = array('label' => $row_ssl_ipandport['ip'] . ':' . $row_ssl_ipandport['port'], 'value' => $row_ssl_ipandport['id']);
+					$ssl_ipsandports[] = array('label' => $row_ssl_ipandport['ip'] . ':' . $row_ssl_ipandport['port'] . '<br />', 'value' => $row_ssl_ipandport['id']);
 				}
 
 				$standardsubdomains = array();
@@ -1645,6 +1652,8 @@ if ($page == 'domains'
 				// FIXME check how many we got and if the amount of assigned IP's
 				// has changed so we can insert a config-rebuild task if only
 				// the ip's of this domain were changed
+				// -> for now, always insert a rebuild-task
+				inserttask('1');
 
 				// Cleanup domain <-> ip mapping
 				$del_stmt = Database::prepare("
@@ -1818,7 +1827,7 @@ if ($page == 'domains'
 					if (filter_var($row_ipandport['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
 						$row_ipandport['ip'] = '[' . $row_ipandport['ip'] . ']';
 					}
-					$ipsandports[] = array('label' => $row_ipandport['ip'] . ':' . $row_ipandport['port'], 'value' => $row_ipandport['id']);
+					$ipsandports[] = array('label' => $row_ipandport['ip'] . ':' . $row_ipandport['port'] . '<br />', 'value' => $row_ipandport['id']);
 				}
 
 				$ssl_ipsandports = array();
@@ -1826,7 +1835,7 @@ if ($page == 'domains'
 					if (filter_var($row_ssl_ipandport['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
 						$row_ssl_ipandport['ip'] = '[' . $row_ssl_ipandport['ip'] . ']';
 					}
-					$ssl_ipsandports[] = array('label' => $row_ssl_ipandport['ip'] . ':' . $row_ssl_ipandport['port'], 'value' => $row_ssl_ipandport['id']);
+					$ssl_ipsandports[] = array('label' => $row_ssl_ipandport['ip'] . ':' . $row_ssl_ipandport['port'] . '<br />', 'value' => $row_ssl_ipandport['id']);
 				}
 
 				$result['specialsettings'] = $result['specialsettings'];

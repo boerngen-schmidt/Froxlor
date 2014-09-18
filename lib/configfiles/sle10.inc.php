@@ -36,7 +36,7 @@ if ($vmail_group === false) {
 
 return array(
 	'sle_10' => array(
-		'label' => 'SUSE Linux Enterprise 10',
+		'label' => 'SUSE Linux Enterprise 10 (deprecated)',
 		'services' => array(
 			'http' => array(
 				'label' => $lng['admin']['configfiles']['http'],
@@ -169,7 +169,7 @@ return array(
 							'etc_cron.d_froxlor' => '/etc/cron.d/froxlor'
 						),
 						'restart' => array(
-							'/etc/init.d/cron restart'
+							Settings::Get('system.crondreload')
 						)
 					),
 					'awstats' => array(

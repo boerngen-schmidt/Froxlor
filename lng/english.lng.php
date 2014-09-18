@@ -1307,11 +1307,11 @@ $lng['serversettings']['phpfpm_settings']['pm'] = 'Process manager control (pm)'
 $lng['serversettings']['phpfpm_settings']['max_children']['title'] = 'The number of child processes';
 $lng['serversettings']['phpfpm_settings']['max_children']['description'] = 'The number of child processes to be created when pm is set to \'static\' and the maximum number of child processes to be created when pm is set to \'dynamic/ondemand\'<br />Equivalent to the PHP_FCGI_CHILDREN';
 $lng['serversettings']['phpfpm_settings']['start_servers']['title'] = 'The number of child processes created on startup';
-$lng['serversettings']['phpfpm_settings']['start_servers']['description'] = 'Note: Used only when pm is set to \'dynamic/ondemand\'';
+$lng['serversettings']['phpfpm_settings']['start_servers']['description'] = 'Note: Used only when pm is set to \'dynamic\'';
 $lng['serversettings']['phpfpm_settings']['min_spare_servers']['title'] = 'The desired minimum number of idle server processes';
-$lng['serversettings']['phpfpm_settings']['min_spare_servers']['description'] = 'Note: Used only when pm is set to \'dynamic/ondemand\'<br />Note: Mandatory when pm is set to \'dynamic/ondemand\'';
+$lng['serversettings']['phpfpm_settings']['min_spare_servers']['description'] = 'Note: Used only when pm is set to \'dynamic\'<br />Note: Mandatory when pm is set to \'dynamic\'';
 $lng['serversettings']['phpfpm_settings']['max_spare_servers']['title'] = 'The desired maximum number of idle server processes';
-$lng['serversettings']['phpfpm_settings']['max_spare_servers']['description'] = 'Note: Used only when pm is set to \'dynamic/ondemand\'<br />Note: Mandatory when pm is set to \'dynamic/ondemand\'';
+$lng['serversettings']['phpfpm_settings']['max_spare_servers']['description'] = 'Note: Used only when pm is set to \'dynamic\'<br />Note: Mandatory when pm is set to \'dynamic\'';
 $lng['serversettings']['phpfpm_settings']['max_requests']['title'] = 'Requests per child before respawning';
 $lng['serversettings']['phpfpm_settings']['max_requests']['description'] = 'For endless request processing specify \'0\'. Equivalent to PHP_FCGI_MAX_REQUESTS.';
 $lng['error']['phpfpmstillenabled'] = 'PHP-FPM is currently active. Please deactivate it before activating FCGID';
@@ -1817,3 +1817,9 @@ $lng['error']['cannotdeletehostnamephpconfig'] = 'This PHP-configuration is used
 $lng['error']['cannotdeletedefaultphpconfig'] = 'This PHP-configuration is set as default and cannot be deleted.';
 $lng['serversettings']['system_cron_allowautoupdate']['title'] = 'Allow automatic database updates';
 $lng['serversettings']['system_cron_allowautoupdate']['description'] = '<div style="color:red"><b>ATTENTION:</b></div> This settings allows the cronjob to bypass the version-check of froxlors files and database and runs the database-updates in case a version-mismatch occurs.<br><br><div style="color:red">Auto-update will always set default values for new settings or changes. This might not always suite your system. Please think twice before activating this option</div>';
+$lng['error']['passwordshouldnotbeusername'] = 'The password should not be the same as the username.';
+
+// Added in Froxlor 0.9.33
+$lng['admin']['customer_show_news_feed'] = "Show custom newsfeed on customer-dashboard";
+$lng['admin']['customer_news_feed_url'] = "RSS-Feed for the custom newsfeed";
+$lng['serversettings']['dns_createhostnameentry'] = "Create bind-zone/config for system hostname";

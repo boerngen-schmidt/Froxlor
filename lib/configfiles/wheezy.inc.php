@@ -97,7 +97,7 @@ return array(
 							'rm /etc/nginx/sites-enabled/default',
 							'mkdir -p ' . Settings::Get('system.documentroot_prefix'),
 							'mkdir -p ' . Settings::Get('system.logfiles_directory'),
-							//'mkdir -p ' . Settings::Get('system.deactivateddocroot'),
+							(Settings::Get('system.deactivateddocroot') != '') ? 'mkdir -p ' . Settings::Get('system.deactivateddocroot') : '',
 							'mkdir -p ' . Settings::Get('system.mod_fcgid_tmpdir'),
 							'chmod 1777 ' . Settings::Get('system.mod_fcgid_tmpdir'),
 							'chmod u+x /etc/init.d/php-fcgi'
@@ -369,7 +369,7 @@ return array(
 							'etc_cron.d_froxlor' => '/etc/cron.d/froxlor'
 						),
 						'restart' => array(
-							'/etc/init.d/cron restart'
+							Settings::Get('system.crondreload')
 						)
 					),
 					'awstats' => array(
@@ -426,7 +426,7 @@ return array(
 							(Settings::Get('system.mod_fcgid_ownvhost') == '1') ? 'a2dismod php5' : null
 						),
 						'restart' => array(
-							'/etc/init.d/apache2 restart'
+							Settings::Get('system.apachereload_command')
 						)
 					),
 					'php-fpm' => array(
@@ -441,6 +441,9 @@ return array(
 							(Settings::Get('phpfpm.enabled_ownvhost') == '1') ? 'useradd -s /bin/false -g '.Settings::Get('phpfpm.vhost_httpgroup').' '.Settings::Get('phpfpm.vhost_httpuser') : null,
 							(Settings::Get('phpfpm.enabled_ownvhost') == '1') ? 'chown -R '.Settings::Get('phpfpm.vhost_httpuser').':'.Settings::Get('phpfpm.vhost_httpgroup').' '.FROXLOR_INSTALL_DIR : null,
 							(Settings::Get('phpfpm.enabled_ownvhost') == '1') ? 'a2dismod php5' : null
+						),
+						'restart' => array(
+							Settings::Get('system.apachereload_command')
 						)
 					)
 				)

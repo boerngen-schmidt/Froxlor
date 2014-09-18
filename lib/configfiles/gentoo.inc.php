@@ -101,7 +101,7 @@ return array(
 						'commands_2' => array(
 							'mkdir -p ' . Settings::Get('system.documentroot_prefix'),
 							'mkdir -p ' . Settings::Get('system.logfiles_directory'),
-							'mkdir -p ' . Settings::Get('system.deactivateddocroot'),
+							(Settings::Get('system.deactivateddocroot') != '') ? 'mkdir -p ' . Settings::Get('system.deactivateddocroot') : '',
 							'mkdir -p ' . Settings::Get('system.mod_fcgid_tmpdir'),
 							'chmod 1777 ' . Settings::Get('system.mod_fcgid_tmpdir'),
 							'chmod u+x /etc/init.d/php-fcgi',
@@ -374,7 +374,6 @@ milter_default_action = accept" >> /etc/postfix/main.cf',
 					'cron' => array(
 						'label' => 'Crond (cronscript)',
 						'commands_1' => array(
-							'emerge -av vixie-cron',
 							'touch /etc/cron.d/froxlor',
 							'chown root:0 /etc/cron.d/froxlor',
 							'chmod 0640 /etc/cron.d/froxlor'
@@ -382,11 +381,8 @@ milter_default_action = accept" >> /etc/postfix/main.cf',
 						'files' => array(
 							'etc_cron.d_froxlor' => '/etc/cron.d/froxlor'
 						),
-						'commands_2' => array(
-							'rc-update add vixie-cron default'
-						),
 						'restart' => array(
-							'/etc/init.d/vixie-cron restart'
+							Settings::Get('system.crondreload')
 						)
 					),
 					'awstats' => array(
