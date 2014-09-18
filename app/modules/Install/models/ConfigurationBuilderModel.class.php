@@ -19,6 +19,10 @@
  
 class Install_ConfigurationBuilderModel extends FroxlorInstallBaseModel
 {
+	
+	const AGAVI_AE = 'http://agavi.org/agavi/config/global/envelope/1.1';
+	const AGAVI_DB = 'http://agavi.org/agavi/config/parts/databases/1.1';
+	const AGAVI_CFG = 'http://agavi.org/agavi/config/parts/settings/1.1';
 	/**
 	 * @todo fill in documentation here
 	 *
@@ -67,6 +71,12 @@ class Install_ConfigurationBuilderModel extends FroxlorInstallBaseModel
 	 * @var          string 
 	 */
 	private $SqlRootPassword;
+	
+	public function initialize(AgaviContext $context, Array $parameters) {
+		parent::initialize($context, $parameters);
+		
+		// Set model parameters
+	}
 
 	/**
 	 * Sets the SqlUser attribute.
@@ -226,16 +236,17 @@ class Install_ConfigurationBuilderModel extends FroxlorInstallBaseModel
 		return 'mysql:host='.$this->SqlServer.';dbname='.$this->SqlDatabase;
 	}
 	
-	public function createUserDatabaseXml() {
-		define(AGAVI_AE, 'http://agavi.org/agavi/config/global/envelope/1.1');
-		define(AGAVI_DB, 'http://agavi.org/agavi/config/parts/databases/1.1');
+	/**
+	 * Writes a new database.xml file to /tmp
+	 */
+	public function writeToTmpFile() {
 		$doc = new DOMDocument('1.0', 'UTF-8');
 		$doc->formatOutput = true;
-		$root = $doc->createElementNS(AGAVI_AE, 'ae:configurations');
+		$root = $doc->createElementNS(self::AGAVI_AE, 'ae:configurations');
 		$root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns', AGAVI_DB);
 		$doc->appendChild($root);
 		
-		$coniguration = $doc->createElementNS(AGAVI_AE, 'ae:configuration');
+		$coniguration = $doc->createElementNS(self::AGAVI_AE, 'ae:configuration');
 		$root->appendChild($coniguration);
 		
 		$databases = $doc->createElement('databases');
@@ -247,13 +258,13 @@ class Install_ConfigurationBuilderModel extends FroxlorInstallBaseModel
 		$db_froxlor->setAttribute('class', 'AgaviPdoDatabase');
 		$databases->appendChild($db_froxlor);
 		
-		$param = $doc->createElementNS(AGAVI_AE, 'ae:parameter', $this->getMysqlDSN());
+		$param = $doc->createElementNS(self::AGAVI_AE, 'ae:parameter', $this->getMysqlDSN());
 		$param->setAttribute('name', 'dsn');
 		$db_froxlor->appendChild($param);
-		$param = $doc->createElementNS(AGAVI_AE, 'ae:parameter', $this->getSqlUser());
+		$param = $doc->createElementNS(self::AGAVI_AE, 'ae:parameter', $this->getSqlUser());
 		$param->setAttribute('name', 'username');
 		$db_froxlor->appendChild($param);
-		$param = $doc->createElementNS(AGAVI_AE, 'ae:parameter', $this->getSqlPassword());
+		$param = $doc->createElementNS(self::AGAVI_AE, 'ae:parameter', $this->getSqlPassword());
 		$param->setAttribute('name', 'password');
 		$db_froxlor->appendChild($param);
 		
@@ -262,38 +273,104 @@ class Install_ConfigurationBuilderModel extends FroxlorInstallBaseModel
 		$db_root->setAttribute('class', 'AgaviPdoDatabase');
 		$databases->appendChild($db_root);
 		
-		$param = $doc->createElementNS(AGAVI_AE, 'ae:parameter', $this->getMysqlDSN());
+		$param = $doc->createElementNS(self::AGAVI_AE, 'ae:parameter', $this->getMysqlDSN());
 		$param->setAttribute('name', 'dsn');
 		$db_root->appendChild($param);
-		$param = $doc->createElementNS(AGAVI_AE, 'ae:parameter', $this->getSqlRootUser());
+		$param = $doc->createElementNS(self::AGAVI_AE, 'ae:parameter', $this->getSqlRootUser());
 		$param->setAttribute('name', 'username');
 		$db_root->appendChild($param);
-		$param = $doc->createElementNS(AGAVI_AE, 'ae:parameter', $this->getSqlRootPassword());
+		$param = $doc->createElementNS(self::AGAVI_AE, 'ae:parameter', $this->getSqlRootPassword());
 		$param->setAttribute('name', 'password');
 		$db_root->appendChild($param);
 				
-		/* get the xml printed */
-		$this->writeUserDatabaseXml( $doc->saveXML() );
-		
-		unset ($root, $coniguration, $databases, $db_froxlor, $db_root, $param);
+		// write the 
+		return $doc->save('/tmp/database.xml');
 	}
 	
-	private function writeUserDatabaseXml($content) {
-		if ($fp = @fopen(AgaviConfig::get('core.app_dir').'/config/databases.user.xml', 'w')) {
+	public function enableDatabase(DOMDocument $doc) {
+		$xpath = new DOMXPath($doc);
+		$xpath->registerNamespace('ae', self::AGAVI_AE);
+		$xpath->registerNamespace('cfg', self::AGAVI_CFG);
+		$result = $xpath->query("/ae:configurations/ae:configuration/cfg:settings/cfg:setting[@name='use_database']");
+		/* @var $element DOMElement */
+		$element = $result->item(0);
+		$element->nodeValue = 'true';
+	}
+	
+	/**
+	 * Writes the given content into a file
+	 * 
+	 * @param string $content The content which should be written in the file
+	 * @param string $file Path, Filename and extentsion to write content into
+	 * @return boolean true on successful write | false otherwise
+	 */
+	private function writeContentToFile($content, $file) {
+		if ($fp = @fopen($file, 'w')) {
 			$result = @fputs($fp, $content, strlen($content));
 			@fclose($fp);
-			chmod(AgaviConfig::get('core.app_dir').'/config/databases.user.xml', 0440);
-			return 1;
-		}
-		elseif ($fp = @fopen('/tmp/databases.user.xml', 'w')) {
-			$result = @fputs($fp, $content, strlen($content));
-			@fclose($fp);
-			chmod('/tmp/databases.user.xml', 0440);
-			return 2;
+			chmod($file, 0440);
+			return true;
 		} else {
-			return 0;
+			return false;
 		}
 	}
+	
+	public function changeDatabaseXml(DOMDocument $doc) {
+		$xpath = new DOMXPath($doc);
+		$xpath->registerNamespace('ae', self::AGAVI_AE);
+		$xpath->registerNamespace('db', self::AGAVI_DB);
+		
+		// Should return just one note
+		$result = $xpath->query("/ae:configurations/ae:configuration/db:databases/db:database[@name='froxlor']");
+		/* @var $element DOMElement */
+		$element = $result->item(0);
+		if ($element->hasChildNodes()) {
+			foreach ($element->childNodes as $e) {
+				if (!$e instanceof DOMElement)
+					continue;
+				/* @var $e DOMElement */
+				switch ($e->getAttribute('name')) {
+					case 'dsn':
+						$e->nodeValue = $this->getMysqlDSN();
+						break;
+					case 'username':
+						$e->nodeValue = $this->getSqlUser();
+						break;
+					case 'password':
+						$e->nodeValue = $this->getSqlPassword();
+						break;
+				}
+			}
+		}
+		
+		// Now the root database connection
+		// Should return just one note
+		$result = $xpath->query("/ae:configurations/ae:configuration/db:databases/db:database[@name='root']");
+		/* @var $element DOMElement */
+		$element = $result->item(0);
+		if ($element->hasChildNodes()) {
+			foreach ($element->childNodes as $e) {
+				if (!$e instanceof DOMElement)
+					continue;
+				/* @var $e DOMElement */
+				switch ($e->getAttribute('name')) {
+					case 'dsn':
+						$e->nodeValue = $this->getMysqlDSN();
+						break;
+					case 'username':
+						$e->nodeValue = $this->getSqlUser();
+						break;
+					case 'password':
+						$e->nodeValue = $this->getSqlPassword();
+						break;
+				}
+			}
+		}
+		
+		
+	}
 }
+
+class FroxlorConfigurationBuilderException extends AgaviException {}
 
 ?>

@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ae:configurations xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.1" xmlns="http://agavi.org/agavi/config/parts/databases/1.1">
+<ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.1" xmlns="http://agavi.org/agavi/config/parts/databases/1.1">
 	
 	<ae:configuration>
-		<xi:include href="%core.app_dir%/config/database.user.xml" xpointer="xmlns(ae=http://agavi.org/agavi/config/global/envelope/1.1) xpointer(/ae:configurations/ae:configuration/*)">
-		<xi:fallback></xi:fallback>
-	</xi:include>
+		<databases default="froxlor">
+			
+			<database name="froxlor" class="AgaviPdoDatabase">
+				<ae:parameter name="dsn">mysql:host=localhost;dbname=froxlor</ae:parameter>
+				<ae:parameter name="username">froxlor</ae:parameter>
+				<ae:parameter name="password"></ae:parameter>
+			</database>
+			
+			<database name="root" class="AgaviPdoDatabase">
+				<ae:parameter name="dsn">mysql:host=localhost;dbname=froxlor</ae:parameter>
+				<ae:parameter name="username">root</ae:parameter>
+				<ae:parameter name="password"></ae:parameter>
+			</database>
+			
+		</databases>
 	</ae:configuration>
-	
 	
 </ae:configurations>

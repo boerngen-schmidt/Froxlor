@@ -17,9 +17,29 @@
  *
  */
 
-class Install_SettingsAction extends FroxlorInstallBaseAction
+class Install_InstallationAction extends FroxlorInstallBaseAction
 {
 	
+
+	/**
+	 * Handles the Read request method.
+	 *
+	 * @parameter  AgaviRequestDataHolder the (validated) request data
+	 *
+	 * @return     mixed <ul>
+	 *                     <li>A string containing the view name associated
+	 *                     with this action; or</li>
+	 *                     <li>An array with two indices: the parent module
+	 *                     of the view to be executed and the view to be
+	 *                     executed.</li>
+	 *                   </ul>^
+	 */
+	public function executeRead(AgaviRequestDataHolder $rd)
+	{
+		// do installation
+		
+		return 'Success';
+	}
 
 	/**
 	 * Handles the Write request method.
@@ -36,44 +56,9 @@ class Install_SettingsAction extends FroxlorInstallBaseAction
 	 */
 	public function executeWrite(AgaviRequestDataHolder $rd)
 	{
-		/* @var $cfg Install_ConfigurationBuilderModel */
-		$cfg = $this->context->getModel('ConfigurationBuilder', 'Install');
+		// Do installation
 		
-		// first we try changing the default database.xml
-	
-		if (is_writable($filename)(AgaviConfig::get('%core.app_dir%').'/config/database.xml')
-			&& is_writable(AgaviConfig::get('%core.app_dir%').'/config/setting.xml')) {
-			$doc = new DOMDocument();
-			$doc->load(AgaviConfig::get('%core.app_dir%').'/config/database.xml');
-			$cfg->changeDatabaseXml($doc);
-			
-			$doc = new DOMDocument();
-			$doc->load(AgaviConfig::get('%core.app_dir%').'/config/settings.xml');
-			$cfg->enableDatabase($doc);
-			return 'Success';
-		} elseif ($cfg->writeToTmpFile()) {
-			return 'Manual';
-		} else {
-			return 'Error';
-		}
-	}
-	
-	/**
-	 * Handles the Read request method.
-	 *
-	 * @parameter  AgaviRequestDataHolder the (validated) request data
-	 *
-	 * @return     mixed <ul>
-	 *                     <li>A string containing the view name associated
-	 *                     with this action; or</li>
-	 *                     <li>An array with two indices: the parent module
-	 *                     of the view to be executed and the view to be
-	 *                     executed.</li>
-	 *                   </ul>^
-	 */
-	public function executeRead(AgaviRequestDataHolder $rd)
-	{
-		return 'Input';
+		return 'Success';
 	}
 	
 	/**
